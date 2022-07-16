@@ -36,6 +36,11 @@ app.get("/messages", function (request, response) {
   response.send(messages);
 });
 
+app.get("/messages/:id", function (request, response) {
+  let messageId = request.params.id;
+  response.send(JSON.stringify(messages[messageId]));
+});
+
 // POST /messages
 app.post("/messages", function (request, response) {
   // sanitize the input fields
@@ -44,6 +49,17 @@ app.post("/messages", function (request, response) {
   newMessage.id = availableId++;
   messages.push(newMessage);
   response.sendStatus(201);
+});
+
+app.delete("/messages/:id", function(request, response){
+  let messageId = request.params.id;
+  const selectedMessage = messages.find(message => message.id == messageId);
+  if (selectedMessage) {
+    messages.splice(selectedMessage, 1)
+    response.status(200).send("Message deleted");
+  } else {
+    response.status(404).send("Message not found");
+  }
 });
 
 app.listen(3000, () => {

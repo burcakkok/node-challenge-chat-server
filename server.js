@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const messagesHandler = require('./routes/messages');
+// const messagesHandler = require('./routes/messages');
 
 const app = express();
 
@@ -41,6 +41,7 @@ app.get("/messages/:id", function (request, response) {
   response.send(JSON.stringify(messages[messageId]));
 });
 
+
 // POST /messages
 app.post("/messages", function (request, response) {
   // sanitize the input fields
@@ -62,6 +63,6 @@ app.delete("/messages/:id", function(request, response){
   }
 });
 
-app.listen(3000, () => {
+app.listen(3001, () => {
    console.log("Listening on port 3000")
   });
